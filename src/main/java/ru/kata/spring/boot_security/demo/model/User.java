@@ -25,7 +25,6 @@ public class User {
     @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
-
     @Column(name = "password")
     private String password;
     @OneToMany
@@ -82,7 +81,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

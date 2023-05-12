@@ -65,6 +65,7 @@ public class UsersController {
             return "update";
         }
         userService.add(user);
+        userService.edit(id, user);
 //        userService.editUser(id, user);
         return "redirect:/admin/users";
     }
