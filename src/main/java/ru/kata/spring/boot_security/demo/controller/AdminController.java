@@ -7,18 +7,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.util.UserValidator;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class UsersController {
+public class AdminController {
 
     private final UserService userService;
+    private final UserValidator userValidator;
 
     @Autowired
-    public UsersController(UserService userService) {
+    public AdminController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
     }
 
     //List of All users________________________________________________________
@@ -37,6 +40,7 @@ public class UsersController {
 
     @PostMapping(value = "/users")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "new";
         }
@@ -59,14 +63,12 @@ public class UsersController {
     }
 
     @PatchMapping(value = "/users/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "update";
         }
-        userService.add(user);
         userService.edit(id, user);
-//        userService.editUser(id, user);
         return "redirect:/admin/users";
     }
 }

@@ -35,7 +35,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
     @Override
     @Transactional
-    public void edit(int id, User user) { //TODO
+    public void edit(int id, User user) { //TODO. I guess its work, but still need fix. ID have no usage
         userRepository.save(user);
     }
 

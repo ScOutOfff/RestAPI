@@ -27,7 +27,7 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @OneToMany
+    @ManyToMany
     private Set<Role> roles;
 
     public User() {
@@ -44,6 +44,14 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public void setId(int id) {

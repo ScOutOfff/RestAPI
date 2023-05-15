@@ -22,11 +22,20 @@
                 <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
                 </div>
             </td>
+        </tr>
         <tr>
             <td><label for="email"> Email </label></td>
             <td><input type="text" th:field="*{email}" id="email"/>
                 <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">EMAILERROR</div>
             </td>
+        </tr>
+        <tr>
+            <td><label for="password"> Password </label></td>
+            <td><input type="text" th:field="*{password}" id="password">
+                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
     <input type="submit" value="Update User"/>
