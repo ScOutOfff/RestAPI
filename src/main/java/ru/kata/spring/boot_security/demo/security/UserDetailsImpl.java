@@ -6,10 +6,10 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
 
-public class DetailsUser implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private final User user;
 
-    public DetailsUser(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 

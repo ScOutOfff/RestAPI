@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -27,7 +28,6 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @ManyToMany
     private Set<Role> roles;
 
     public User() {
@@ -44,14 +44,6 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     public void setId(int id) {
