@@ -24,6 +24,13 @@
             </td>
         </tr>
         <tr>
+            <td><label for="age"> Age </label></td>
+            <td><input type="text" th:field="*{age}" id="age"/>
+                <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td><label for="email"> Email </label></td>
             <td><input type="text" th:field="*{email}" id="email"/>
                 <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">EMAILERROR</div>

@@ -2,20 +2,27 @@ package ru.kata.spring.boot_security.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
 
+@Component
 public class UserDetailsImpl implements UserDetails {
-    private final User user;
+    private User user;
+    private String name;
+    private String password;
+    private Collection<GrantedAuthority> authorities;
 
     public UserDetailsImpl(User user) {
         this.user = user;
     }
+    public UserDetailsImpl(){}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

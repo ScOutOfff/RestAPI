@@ -2,27 +2,30 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.util.Set;
 
-//TODO Should add an age field i guess
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Field \"Name\" cannot be empty")
+    @NotEmpty(message = "Field \"Name\" should not empty")
     @Size(min = 2, max = 30, message = "Name should be from 2 to 30 letters")
     @Column(name = "name")
     private String name;
-    @NotEmpty(message = "Field \"Last Name\" cannot be empty")
+    @NotEmpty(message = "Field \"Last Name\" should not empty")
     @Size(min = 2, max = 30, message = "Last Name should be from 2 to 30 letters")
     @Column(name = "last_name")
     private String lastName;
-    @NotEmpty(message = "Field \"Email\" cannot be empty")
+    @Min(value = 0, message = "Age should be greater than 0")
+    @Column(name = "age")
+    private int age;
+    @NotEmpty(message = "Field \"Email\" should not empty")
     @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
@@ -74,6 +77,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -92,6 +103,9 @@ public class User {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+    public String getRolesAsString() {
+        return roles.toString().replace("[","").replace("]", "");
     }
 
     public void setRoles(Set<Role> roles) {

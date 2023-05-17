@@ -38,4 +38,9 @@ public class Role {
         this.users = users;
     }
 
+    @Override
+    public String toString() {
+        name = name.replace("ROLE_", "");
+        return name;
+    }
 }

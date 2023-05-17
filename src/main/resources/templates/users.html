@@ -15,7 +15,9 @@
             <th scope="col">id</th>
             <th scope="col">Name</th>
             <th scope="col">Last Name</th>
+            <th scope="col">Age</th>
             <th scope="col">Email</th>
+            <th scope="col">Roles</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -25,7 +27,9 @@
         <td th:text="${user.getId()}"/>
         <td th:text="${user.getName()}"/>
         <td th:text="${user.getLastName()}"/>
+        <td th:text="${user.getAge()}"/>
         <td th:text="${user.getEmail()}"/>
+        <td th:text="${user.getRolesAsString()}"/>
         <td><a th:href="@{users/{id}/update(id=${user.getId()})}" th:text="EDIT"/></td>
         <td>
             <form th:method="DELETE" th:action="@{/admin/users/{id}/delete(id=${user.getId()})}">
