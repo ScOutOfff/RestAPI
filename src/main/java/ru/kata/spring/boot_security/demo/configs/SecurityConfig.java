@@ -29,8 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        Role adminRole = roleRepository.findRoleById(2L);
+        Role userRole = roleRepository.findRoleById(1L);
         http.authorizeRequests()
                 .antMatchers("/auth/login", "/error").permitAll()       //TODO Role access
+                .antMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login")
