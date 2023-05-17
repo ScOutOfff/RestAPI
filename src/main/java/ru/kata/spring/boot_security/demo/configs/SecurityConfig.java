@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.dao.RoleRepository;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -19,21 +17,19 @@ import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userService;
-    private final RoleRepository roleRepository; //TODO No usage yet
+    private final SuccessUserHandler successUserHandler;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userService, RoleRepository roleRepository) {
+    public SecurityConfig(UserDetailsServiceImpl userService, SuccessUserHandler successUserHandler) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.successUserHandler = successUserHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        Role adminRole = roleRepository.findRoleById(2L);
-        Role userRole = roleRepository.findRoleById(1L);
         http.authorizeRequests()
-                .antMatchers("/auth/login", "/error").permitAll()       //TODO Role access
-                .antMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/auth/login", "/error").permitAll()
+                .antMatchers(HttpMethod.GET, "/user").hasRole("USER")
                 .antMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
@@ -42,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/admin/users", true)
+                .successHandler(successUserHandler)
                 .failureUrl("/auth/login?error")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login");

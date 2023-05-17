@@ -24,6 +24,11 @@ public class AdminController {
         this.userValidator = userValidator;
     }
 
+    @GetMapping
+    public String adminPage() {
+        return "admin";
+    }
+
     //List of All users________________________________________________________
     @GetMapping("/users")
     public String getUsers(Model model) {
@@ -64,7 +69,7 @@ public class AdminController {
 
     @PatchMapping(value = "/users/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
             return "update";
         }

@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.util.Set;
 
+//TODO Should add an age field i guess
 @Entity
 @Table(name = "users")
 public class User {

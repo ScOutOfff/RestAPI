@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     @Transactional
-    public void edit(int id, User user) { //TODO. I guess its work, but still need fix. ID have no usage
+    public void edit(Long id, User user) { //TODO. I guess its work, but still need fix. ID have no usage
         userRepository.save(user);
     }
 
