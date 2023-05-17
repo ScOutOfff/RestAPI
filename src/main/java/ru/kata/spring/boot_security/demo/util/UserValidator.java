@@ -6,16 +6,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Component
 public class UserValidator implements Validator {
-
-    private final UserDetailsServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public UserValidator(UserDetailsServiceImpl userService) {
+    public UserValidator(UserService userService) {
         this.userService = userService;
     }
 
@@ -28,12 +26,9 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        try {
-            userService.loadUserByUsername(user.getEmail()); //TODO rework with email
-        } catch (UsernameNotFoundException ignored) {
-            return;
+        if (userService.findByEmail(user.getEmail()) != null) {
+            errors.rejectValue("email", "", "User with this email already exist");
         }
 
-        errors.rejectValue("email", "", "User with this email already exist");
     }
 }

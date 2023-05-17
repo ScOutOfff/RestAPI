@@ -10,5 +10,6 @@ public interface UserService {
     void add(User user);
     void edit(int id, User user);
     User getUserById(int id);
+    User findByEmail(String email);
     void delete(int id);
 }

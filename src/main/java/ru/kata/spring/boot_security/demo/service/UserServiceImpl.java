@@ -3,18 +3,24 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -26,6 +32,9 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void add(User user) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.getOne(1L));
+        user.setRoles(roles);
         userRepository.save(user);
     }
     @Override
@@ -39,6 +48,12 @@ public class UserServiceImp implements UserService {
     public User getUserById(int id) {
         return userRepository.findById(id).orElseThrow();
 //        return userDao.getUserById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
