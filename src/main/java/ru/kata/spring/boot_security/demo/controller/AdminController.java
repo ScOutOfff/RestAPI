@@ -50,14 +50,14 @@ public class AdminController {
 
     //Deleting a User_________________________________________________________________
     @DeleteMapping(value = "/users/{id}/delete")
-    public String deleteUser(@PathVariable("id") int id) {
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin/users";
     }
 
     //Editing a User_____________________________________________________________________
     @GetMapping(value = "/users/{id}/update")
-    public String updateUser(Model model, @PathVariable("id") int id) {
+    public String updateUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "update";
     }
