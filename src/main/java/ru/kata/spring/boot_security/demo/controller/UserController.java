@@ -22,11 +22,13 @@ public class UserController {
 
     @GetMapping("/user")
     public String getUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String email = userDetails.getUsername();
-        User user = userService.findByEmail(email);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(userDetails.getUsername());
         model.addAttribute("users", user);
         return "user";
+    }
+    @GetMapping("/ad")
+    public String ad() {
+        return "ad";
     }
 }
