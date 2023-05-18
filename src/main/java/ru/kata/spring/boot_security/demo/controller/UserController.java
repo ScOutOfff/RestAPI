@@ -1,15 +1,15 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
 @Controller
 public class UserController {
 
@@ -19,17 +19,14 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/user")
-    public String getUser(Model model) {//TODO It doesnt work, need to take authorized user and put him on 'user.html'
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDetails.getUser();
+    public String getUser(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+        User user = userService.findByEmail(email);
         model.addAttribute("users", user);
-        return "user";
-//        return "redirect:/user/{id}";
-    }
-    @GetMapping("/user/{id}")
-    public String getUserPage(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("users", userService.getUserById(id));
         return "user";
     }
 }
