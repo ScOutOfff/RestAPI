@@ -26,8 +26,4 @@ public class UserController {
         model.addAttribute("users", user);
         return "user";
     }
-    @GetMapping("/ad")
-    public String ad() {
-        return "ad";
-    }
 }

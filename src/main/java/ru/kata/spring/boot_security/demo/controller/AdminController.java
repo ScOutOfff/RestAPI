@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.util.UserValidator;
 
@@ -18,11 +19,13 @@ import javax.validation.Valid;
 public class AdminController {
 
     private final UserService userService;
+    private final RoleService roleService;
     private final UserValidator userValidator;
 
     @Autowired
-    public AdminController(UserService userService, UserValidator userValidator) {
+    public AdminController(UserService userService, RoleService roleService, UserValidator userValidator) {
         this.userService = userService;
+        this.roleService = roleService;
         this.userValidator = userValidator;
     }
 
@@ -32,6 +35,8 @@ public class AdminController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User authUser = userService.findByEmail(userDetails.getUsername());
         model.addAttribute("authUser", authUser);
+
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin";
     }
 
@@ -81,5 +86,12 @@ public class AdminController {
         }
         userService.edit(id, user);
         return "redirect:/admin/users";
+    }
+    //Edit a user NEW
+    @PatchMapping("/{id}") //TODO
+    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+//        User newUser = userService.getUserById(id);
+        userService.add(user);
+        return "redirect:/admin";
     }
 }

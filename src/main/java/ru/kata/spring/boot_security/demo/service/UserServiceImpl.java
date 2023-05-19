@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void add(User user) {
         Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getOne(1L));
+        roles.add(roleRepository.findById(1L).get());
         user.setRoles(roles);
         userRepository.save(user);
     }
