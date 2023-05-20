@@ -31,12 +31,13 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(Model model) {
-        model.addAttribute("users", userService.getUserList());
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User authUser = userService.findByEmail(userDetails.getUsername());
-        model.addAttribute("authUser", authUser);
 
+        model.addAttribute("users", userService.getUserList());
+        model.addAttribute("authUser", authUser);
         model.addAttribute("roles", roleService.getAllRoles());
+        model.addAttribute("newUser", new User());
         return "admin";
     }
 
@@ -87,8 +88,15 @@ public class AdminController {
         userService.edit(id, user);
         return "redirect:/admin/users";
     }
+    /********************************************************************************************************/
+    //Adding a user NEW
+    @PostMapping("")
+    public String addUser(@ModelAttribute("user") User user) {
+        userService.add(user);
+        return "redirect:/admin";
+    }
     //Edit a user NEW
-    @PatchMapping("/{id}") //TODO
+    @PatchMapping("/{id}")
     public String editUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) { //TODO id
         User newUser = userService.getUserById(id);
         newUser.setName(user.getName());
@@ -98,7 +106,12 @@ public class AdminController {
         newUser.setEmail(user.getEmail());
         newUser.setRoles(user.getRoles());
         userService.edit(id, newUser);
-//        userService.add(user);
+        return "redirect:/admin";
+    }
+    //Delete a user NEW
+    @PatchMapping("/{id}/delete")
+    public String deleteUserFromAdmin(@PathVariable("id") Long id) {
+        userService.delete(id);
         return "redirect:/admin";
     }
 }

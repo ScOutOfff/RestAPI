@@ -33,9 +33,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void add(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findById(1L).get());
-        user.setRoles(roles);
         userRepository.save(user);
     }
     @Override
@@ -67,6 +64,5 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long id) {
         userRepository.deleteById(id);
-//        userDao.delete(id);
     }
 }
