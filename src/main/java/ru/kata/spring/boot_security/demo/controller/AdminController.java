@@ -89,9 +89,16 @@ public class AdminController {
     }
     //Edit a user NEW
     @PatchMapping("/{id}") //TODO
-    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-//        User newUser = userService.getUserById(id);
-        userService.add(user);
+    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) { //TODO id
+        User newUser = userService.getUserById(id);
+        newUser.setName(user.getName());
+        newUser.setLastName(user.getLastName());
+        newUser.setPassword(user.getPassword());
+        newUser.setAge(user.getAge());
+        newUser.setEmail(user.getEmail());
+        newUser.setRoles(user.getRoles());
+        userService.edit(id, newUser);
+//        userService.add(user);
         return "redirect:/admin";
     }
 }

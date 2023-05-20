@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -129,16 +131,26 @@
                                                                         <input class="form-control" th:type="text"
                                                                                th:name="name" id="editName"
                                                                                th:value="${user.name}"
-                                                                               required minlength="1" maxlength="50">
+                                                                               required minlength="2" maxlength="50">
+                                                                    </label>
+                                                                </p>
+                                                                <p>
+                                                                    <label for="editLastName">
+                                                                        <strong>Last Name</strong>
+                                                                        <input class="form-control" th:type="text"
+                                                                               th:name="lastName" id="editLastName"
+                                                                               th:value="${user.lastName}"
+                                                                               required minlength="2" maxlength="50">
                                                                     </label>
                                                                 </p>
                                                                 <p>
                                                                     <label for="password">
                                                                         <strong>Password</strong>
-                                                                        <input type="password"
+                                                                        <input type="text"
                                                                                class="form-control"
                                                                                id="password"
-                                                                               name="password" required
+                                                                               name="password"
+                                                                               th:value="${user.password}" required
                                                                                minlength="3"
                                                                                maxlength="33">
                                                                     </label>
@@ -148,7 +160,7 @@
                                                                         <strong>Email</strong>
                                                                         <input class="form-control"
                                                                                th:type="email"
-                                                                               th:name="editEmail"
+                                                                               th:name="email"
                                                                                id="editEmail"
                                                                                th:value="${user.email}"
                                                                                required>
@@ -158,7 +170,7 @@
                                                                     <label for="editAge">
                                                                         <strong>Age</strong>
                                                                         <input class="form-control"
-                                                                               th:type="age" th:name="editAge"
+                                                                               th:type="age" th:name="age"
                                                                                id="editAge" th:value="${user.age}"
                                                                                required>
                                                                     </label>
@@ -168,7 +180,7 @@
                                                                        for="editRoles">
                                                                     <strong>Role</strong>
                                                                     <select id="editRoles" class="form-select"
-                                                                            name="roleList" multiple size="2">
+                                                                            name="roles" multiple size="2">
                                                                         <option th:each="role:${roles}"
                                                                                 th:value="${role.getId()}">
                                                                             <th:block th:text="${role.getName()}">
