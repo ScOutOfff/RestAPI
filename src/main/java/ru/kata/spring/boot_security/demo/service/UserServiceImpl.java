@@ -5,23 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -51,7 +45,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow();
-//        return userDao.getUserById(id);
     }
 
     @Override
