@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleRepository;
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     @Transactional
-    public void edit(Long id, User user) { //TODO. I guess its work, but still need fix. ID have no usage
+    public void edit(User user) {
         String password = user.getPassword();
         if (password.isEmpty()) {
             user.setPassword(userRepository.findById(user.getId()).get().getPassword());

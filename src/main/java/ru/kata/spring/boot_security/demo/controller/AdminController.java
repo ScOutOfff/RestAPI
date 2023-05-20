@@ -85,19 +85,19 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "update";
         }
-        userService.edit(id, user);
+        userService.edit(user);
         return "redirect:/admin/users";
     }
     /********************************************************************************************************/
     //Adding a user NEW
     @PostMapping("")
-    public String addUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") @Valid User user) {
         userService.add(user);
         return "redirect:/admin";
     }
     //Edit a user NEW
     @PatchMapping("/{id}")
-    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) { //TODO id
+    public String editUser(@ModelAttribute("user") @Valid User user, @PathVariable("id") Long id) {
         User newUser = userService.getUserById(id);
         newUser.setName(user.getName());
         newUser.setLastName(user.getLastName());
@@ -105,7 +105,7 @@ public class AdminController {
         newUser.setAge(user.getAge());
         newUser.setEmail(user.getEmail());
         newUser.setRoles(user.getRoles());
-        userService.edit(id, newUser);
+        userService.edit(newUser);
         return "redirect:/admin";
     }
     //Delete a user NEW
