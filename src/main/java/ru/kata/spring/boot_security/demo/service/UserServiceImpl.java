@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), grantedAuthorities); //TODO return model.User not userDetails.User
+        return new User(user.getEmail(), user.getPassword(), grantedAuthorities);
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUsername(), user.getPassword(), grantedAuthorities);r
     }
 }
