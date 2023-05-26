@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -37,6 +36,7 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
@@ -110,7 +110,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return roles;
     }
 
     @Override
