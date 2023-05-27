@@ -18,8 +18,9 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping(value = "/api/admin", produces = "application/json", method = RequestMethod.GET)
+@RequestMapping(value = "/api/admin")
 public class MyRestController {
     private final UserService userService;
     private final ModelMapper modelMapper;

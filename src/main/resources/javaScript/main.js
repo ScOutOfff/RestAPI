@@ -48,8 +48,8 @@ function getUsers() {
                 out += '<td>' + user.rolesAsString + '</td>';
 
                 out += '<td><button type="button" class="btn btn-info" data-toggle="modal"' +
-                    'data-target="#modalEditWindow" style="color:white"' +
-                    'onclick="getEditModal(' + user.id + ')">' + 'Edit' +
+                    ' data-target="#modalEditWindow" style="color:white"' +
+                    ' onclick="getEditModal(' + user.id + ')">' + 'Edit' +
                     '</button></td>' +
                     '<td>';
                 out += '<button type="button" class="btn btn-danger" data-toggle="modal" ' +
@@ -62,41 +62,6 @@ function getUsers() {
             placeholder.innerHTML = out;
         });
 }
-
-
-// async function startHtml() {
-//     const res = await fetch(url);
-//     const users = await res.json();
-//     // console.log(users);
-//
-//     users.forEach(user => getUsersInHtmlTable(user));
-// }
-//
-//
-// window.addEventListener('DOMContentLoaded', startHtml);
-
-// function getUsersInHtmlTable(user) {
-//     const tableOfUsers = document.getElementById('tableOfUsers');
-//
-//     tableOfUsers.insertAdjacentHTML('beforebegin', '' +
-//         '<td>' + user.id + '</td>' +
-//         '<td>' + user.name + '</td>' +
-//         '<td>' + user.lastName + '</td>' +
-//         '<td>' + user.age + '</td>' +
-//         '<td>' + user.email + '</td>' +
-//         '<td>' + user.rolesAsString + '</td>' +
-//         '<td><button type="button" class="btn btn-info" data-toggle="modal"' +
-//         'data-target="#modalEditWindow" style="color:white"' +
-//         'onclick="getEditModal(' + user.id + ')">' + 'Edit' +
-//         '</button></td>' +
-//         '<td>\n' +
-//         '<button type="button" class="btn btn-danger" data-toggle="modal" ' +
-//         'onclick="getDeleteModal(' + user.id + ')">' +
-//         'Delete' +
-//         '</button>' +
-//         '</td>'
-//     )
-// }
 
 function getEditModal(id) {
     fetch(url + '/' + id, {
@@ -207,7 +172,7 @@ function deleteUser() {
     fetch(url + '/' + id, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': '`application/json;`charset=UTF-8'
         }
     })
         .then(() => {

@@ -249,7 +249,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-danger"
+                                                                    onclick="deleteUser()">Delete</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -331,14 +334,6 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tableUserBody">
-                                <!--                                <tr>-->
-                                <!--                                    <td th:text="${authUser.getId()}"></td>-->
-                                <!--                                    <td th:text="${authUser.getName()}"></td>-->
-                                <!--                                    <td th:text="${authUser.getLastName()}"></td>-->
-                                <!--                                    <td th:text="${authUser.getAge()}"></td>-->
-                                <!--                                    <td th:text="${authUser.getEmail()}"></td>-->
-                                <!--                                    <td th:text="${authUser.getRolesAsString()}"></td>-->
-                                <!--                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -350,7 +345,6 @@
 </div>
 
 
-<script type="text/javascript" src="../javaScript/main.js"></script>
 <!--JavaScript-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -361,5 +355,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="../javaScript/main.js"></script>
 </body>
 </html>
