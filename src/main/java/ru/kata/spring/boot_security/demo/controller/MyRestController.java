@@ -35,7 +35,7 @@ public class MyRestController {
         return new ResponseEntity<>(userService.getUserList(), HttpStatus.OK);
     }
 
-    @GetMapping("/authUser") //TODO when Security On
+    @GetMapping("/authUser")
     public ResponseEntity<User> getAuthUser(Principal principal) {
         return ResponseEntity.ok(userService.findByEmail(principal.getName()));
     }
@@ -46,7 +46,7 @@ public class MyRestController {
     }
 
     //Add user
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
@@ -72,16 +72,15 @@ public class MyRestController {
 
     //Update User
     @PatchMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> editUser(@RequestBody @Valid UserDTO user, @PathVariable("id") Long id) {
-        User newUser = getUser(id);
-        newUser.setName(user.getName());
-        newUser.setLastName(user.getLastName());
-        newUser.setPassword(user.getPassword());
-        newUser.setAge(user.getAge());
-        newUser.setEmail(user.getEmail());
-        newUser.setRoles(user.getRoles());
-
-        userService.edit(newUser);
+    public ResponseEntity<HttpStatus> editUser(@RequestBody @Valid User user, @PathVariable("id") Long id) {
+//        User newUser = getUser(id);
+//        newUser.setName(user.getName());
+//        newUser.setLastName(user.getLastName());
+//        newUser.setPassword(user.getPassword());
+//        newUser.setAge(user.getAge());
+//        newUser.setEmail(user.getEmail());
+//        newUser.setRoles(user.getRoles());
+        userService.edit(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -93,17 +92,13 @@ public class MyRestController {
     //Exceptions
     @ExceptionHandler
     private ResponseEntity<UserErrorResponse> handleException(UserNotFoundException e) {
-        UserErrorResponse response = new UserErrorResponse(
-                "Not found user with this ID!", System.currentTimeMillis()
-        );
+        UserErrorResponse response = new UserErrorResponse("Not found user with this ID!");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     private ResponseEntity<UserErrorResponse> handleException(UserNotCreatedException e) {
-        UserErrorResponse response = new UserErrorResponse(
-                e.getMessage(), System.currentTimeMillis()
-        );
+        UserErrorResponse response = new UserErrorResponse(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

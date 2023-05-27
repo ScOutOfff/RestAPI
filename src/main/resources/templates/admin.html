@@ -189,7 +189,8 @@
                                             </div>
 
                                             <!--Delete Modal Window-->
-                                            <div class="modal fade" th:id="'deleteUserModal'+${user.id}">
+                                            <div class="modal fade" id="deleteUserModal" tabindex="-1"
+                                            aria-labelledby="deleteUserModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form id="formDelete" th:method="PATCH" action="#"
