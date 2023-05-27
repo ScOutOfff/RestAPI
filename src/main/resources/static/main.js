@@ -100,6 +100,7 @@ function getEditModal(id) {
 }
 
 function editUser() {
+    event.preventDefault();
     let id = document.getElementById('edit_id');
     let name = document.getElementById('edit_name');
     let lastName = document.getElementById('edit_lastName');
@@ -168,6 +169,7 @@ function getDeleteModal(id) {
 }
 
 function deleteUser() {
+    event.preventDefault();
     let id = document.getElementById('idDeleteUser').value;
     fetch(url + '/' + id, {
         method: 'DELETE',
@@ -182,6 +184,7 @@ function deleteUser() {
 }
 
 function addUser() {
+    event.preventDefault();
     let name = document.getElementById('newUserName').value;
     let lastName = document.getElementById('newUserLastName').value;
     let age = document.getElementById('newUserAge').value;
