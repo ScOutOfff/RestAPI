@@ -72,15 +72,8 @@ public class MyRestController {
     }
 
     //Update User
-    @PatchMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> editUser(@RequestBody @Valid User user, @PathVariable("id") Long id) {
-//        User newUser = getUser(id);
-//        newUser.setName(user.getName());
-//        newUser.setLastName(user.getLastName());
-//        newUser.setPassword(user.getPassword());
-//        newUser.setAge(user.getAge());
-//        newUser.setEmail(user.getEmail());
-//        newUser.setRoles(user.getRoles());
+    @PatchMapping("/users")
+    public ResponseEntity<HttpStatus> editUser(@RequestBody @Valid User user) {
         userService.edit(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }

@@ -48,6 +48,9 @@ function getUsers() {
                 out += '<td>' + user.email + '</td>';
                 out += '<td>' + user.rolesAsString + '</td>';
 
+                console.log(user.roles)
+                console.log(user.authorities)
+
                 out += '<td><button type="button" class="btn btn-info" data-toggle="modal"' +
                     ' data-target="#editModalWindow" style="color:white"' +
                     ' onclick="getEditModal(' + user.id + ')">' + 'Edit' +
@@ -81,6 +84,7 @@ function getEditModal(id) {
                 document.getElementById('edit_password').value = userEdit.password;
                 document.getElementById('edit_role').value = userEdit.roles;
 
+                console.log(userEdit.roles) //TODO
 
                 const select = document.querySelector('#edit_role').getElementsByTagName('option');
 
@@ -108,28 +112,25 @@ function editUser() {
     let age = document.getElementById('edit_age');
     let email = document.getElementById('edit_email');
     let password = document.getElementById('edit_password');
-    let roles = document.getElementById('edit_role');
-    console.log(roles);//TODO delete
+    let roles = document.getElementById('edit_role').getElementsByTagName('option');
 
-    for (let i = 0; i < roles.length; i++) {
-        if (roles[i].value === 'ADMIN') {
-            roles[i] = {
-                'id': 2,
-                'role': 'ROLE_ADMIN',
-                "authority": "ROLE_ADMIN"
-            }
+    if (roles[0].selected) {
+        roles[0] += {
+            'id': 2,
+            'name': 'ROLE_ADMIN',
+            "authority": "ROLE_ADMIN"
         }
-        if (roles[i].value === 'USER') {
-            roles[i] = {
-                'id': 1,
-                'role': 'ROLE_USER',
-                "authority": "ROLE_USER"
-            }
+    }
+    if (roles[1].selected) {
+        roles[1] = {
+            'id': 1,
+            'name': 'ROLE_USER',
+            "authority": "ROLE_USER"
         }
     }
 
     fetch(url, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         },
@@ -198,6 +199,9 @@ function deleteUser() {
         })
 }
 
+
+
+//TODO addUser
 function addUser() {
     event.preventDefault();
     let name = document.getElementById('newUserName').value;
