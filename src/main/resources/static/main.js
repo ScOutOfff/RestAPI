@@ -49,14 +49,14 @@ function getUsers() {
                 out += '<td>' + user.rolesAsString + '</td>';
 
                 out += '<td><button type="button" class="btn btn-info" data-toggle="modal"' +
-                    ' data-target="#modalEditWindow" style="color:white"' +
+                    ' data-target="#editModalWindow" style="color:white"' +
                     ' onclick="getEditModal(' + user.id + ')">' + 'Edit' +
                     '</button></td>' +
                     '<td>';
                 out += '<button type="button" class="btn btn-danger" data-toggle="modal" ' +
-                    'onclick="getDeleteModal(' + user.id + ')">' +
-                    'Delete' +
-                    '</button>' +
+                    ' data-target="#deleteUserModal" style="color:white"' +
+                    ' onclick="getDeleteModal(' + user.id + ')">' +
+                    'Delete' + '</button>' +
                     '</td>';
                 out += '</tr>';
             }
@@ -144,7 +144,7 @@ function editUser() {
         })
     })
         .then(() => {
-            $('editModalWindow').modal('hide');
+            $('#editModalWindow').modal('hide');
             getUsers();
         })
 }
@@ -165,6 +165,20 @@ function getDeleteModal(id) {
                 document.getElementById('deleteAge').value = userDelete.age;
                 document.getElementById('deleteEmail').value = userDelete.email;
                 document.getElementById('deleteRoles').value = userDelete.roles;
+
+                const select = document.querySelector('#deleteRoles').getElementsByTagName('option');
+
+                for (let i = 0; i < userDelete.roles.length; i++) {
+                    if (userDelete.roles[i].name === 'ROLE_' + select[0].value) { //Checking for role USER
+                        select[0].selected = true;
+                        console.log('USER');//TODO delete
+                    }
+                    if (userDelete.roles[i].name === 'ROLE_' + select[1].value) { //Checking for role ADMIN
+                        select[1].selected = true;
+                        console.log('ADMIN');//TODO delete
+                    }
+                }
+                console.log('Go next')//TODO delete
             })
         })
 }
@@ -172,14 +186,14 @@ function getDeleteModal(id) {
 function deleteUser() {
     event.preventDefault();
     let id = document.getElementById('idDeleteUser').value;
-    fetch(url + '/' + id, {
+    fetch(url + '/' + id + '/delete', {
         method: 'DELETE',
         headers: {
             'Content-Type': '`application/json;`charset=UTF-8'
         }
     })
         .then(() => {
-            $('#deleteModal').modal('hide');
+            $('#deleteUserModal').modal('hide');
             getUsers();
         })
 }
@@ -192,6 +206,8 @@ function addUser() {
     let email = document.getElementById('newUserEmail').value;
     let password = document.getElementById('newUserPassword').value;
     let roles = $("#rolesNew").val()
+
+    console.log(roles)
 
     fetch(url, {
         method: 'POST',
@@ -208,7 +224,7 @@ function addUser() {
         })
     })
         .then(() => {
-            document.getElementById('nav-users_table-tab').click()
+            document.getElementById('home-tab').click()
             getUsers()
             document.newUserForm.reset()
         })
