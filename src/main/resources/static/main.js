@@ -81,21 +81,16 @@ function getEditModal(id) {
                 document.getElementById('edit_password').value = userEdit.password;
                 document.getElementById('edit_role').value = userEdit.roles;
 
-                console.log(userEdit.roles) //TODO
-
                 const select = document.querySelector('#edit_role').getElementsByTagName('option');
 
                 for (let i = 0; i < userEdit.roles.length; i++) {
                     if (userEdit.roles[i].name === 'ROLE_' + select[0].value) { //Checking for role USER
                         select[0].selected = true;
-                        console.log('USER');//TODO delete
                     }
                     if (userEdit.roles[i].name === 'ROLE_' + select[1].value) { //Checking for role ADMIN
                         select[1].selected = true;
-                        console.log('ADMIN');//TODO delete
                     }
                 }
-                console.log('Go next')//TODO delete
 
             })
     });

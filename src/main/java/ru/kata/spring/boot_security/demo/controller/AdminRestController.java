@@ -18,15 +18,14 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/admin")
-public class MyRestController {
+public class AdminRestController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public MyRestController(UserService userService, ModelMapper modelMapper) {
+    public AdminRestController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
         this.modelMapper = modelMapper;
     }

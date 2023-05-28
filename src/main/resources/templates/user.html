@@ -10,23 +10,18 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
 
 <div class="container-fluid">
-    <ul class="nav navbar navbar-dark bg-dark navbar navbar-expand-lg">
-        <li class="nav-item">
-            <h5 class="text-white" th:text="${users.getEmail()}">u@mail.com</h5>
-        </li>
-        <li class="nav-item"><h5 class="text-white font-weight-normal">&nbsp;with roles:&nbsp;</h5></li>
-        <li class="nav-item col-9">
-            <h5 class="text-white" th:text="${users.getRolesAsString()}">u@mail.com</h5>
-        </li>
-        <li class="nav-item">
-            <form th:action="@{/logout}" th:method="POST">
-                <button type="submit" class="btn text-secondary">Logout</button>
-            </form>
-        </li>
-    </ul>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <h5 class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"><span id="user-header"></span></h5>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="row">
         <div class="col-2">
@@ -52,17 +47,11 @@
                             <th>Age</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td th:text="${users.getId()}"></td>
-                            <td th:text="${users.getName()}"></td>
-                            <td th:text="${users.getLastName()}"></td>
-                            <td th:text="${users.getAge()}"></td>
-                            <td th:text="${users.getEmail()}"></td>
-                            <td th:text="${users.getRolesAsString()}"></td>
-                        </tr>
+                        <tbody id="tableOfUsers">
                         </tbody>
                     </table>
                 </div>
@@ -70,6 +59,8 @@
         </div>
     </div>
 </div>
+
+<script src="/user.js"></script>
 
 <!--JavaScript-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
