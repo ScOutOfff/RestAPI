@@ -106,26 +106,33 @@ function getEditModal(id) {
 
 function editUser() {
     event.preventDefault();
-    let id = document.getElementById('edit_id');
-    let name = document.getElementById('edit_name');
-    let lastName = document.getElementById('edit_lastName');
-    let age = document.getElementById('edit_age');
-    let email = document.getElementById('edit_email');
-    let password = document.getElementById('edit_password');
-    let roles = document.getElementById('edit_role').getElementsByTagName('option');
+    let id = document.getElementById('edit_id').value;
+    let name = document.getElementById('edit_name').value;
+    let lastName = document.getElementById('edit_lastName').value;
+    let age = document.getElementById('edit_age').value;
+    let email = document.getElementById('edit_email').value;
+    let password = document.getElementById('edit_password').value;
 
-    if (roles[0].selected) {
-        roles[0] += {
-            'id': 2,
-            'name': 'ROLE_ADMIN',
-            "authority": "ROLE_ADMIN"
+    let roles = $("#edit_role").val();
+
+    console.log(roles);
+
+    for (let i = 0; i < roles.length; i++) {
+        console.log(roles[i])
+        console.log("KUKU")
+        if (roles[i] === 'ADMIN') {
+            roles[i] = {
+                'id': 2,
+                'role': 'ROLE_ADMIN',
+                "authority": "ROLE_ADMIN"
+            }
         }
-    }
-    if (roles[1].selected) {
-        roles[1] = {
-            'id': 1,
-            'name': 'ROLE_USER',
-            "authority": "ROLE_USER"
+        if (roles[i] === 'USER') {
+            roles[i] = {
+                'id': 1,
+                'role': 'ROLE_USER',
+                "authority": "ROLE_USER"
+            }
         }
     }
 

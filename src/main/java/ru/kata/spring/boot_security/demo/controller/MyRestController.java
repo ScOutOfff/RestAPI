@@ -65,7 +65,7 @@ public class MyRestController {
     }
 
     //Delete User
-    @DeleteMapping("/users/{id}/delete")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -73,7 +73,7 @@ public class MyRestController {
 
     //Update User
     @PatchMapping("/users")
-    public ResponseEntity<HttpStatus> editUser(@RequestBody @Valid User user) {
+    public ResponseEntity<HttpStatus> editUser(@RequestBody User user) {
         userService.edit(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
