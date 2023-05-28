@@ -14,21 +14,14 @@
 
 <div class="container-fluid">
     <!--Navigation panel-->
-    <ul class="nav navbar navbar-dark bg-dark navbar navbar-expand-lg">
-        <!--        <li class="nav-item">-->
-        <!--            <h5 class="text-white" th:text="${authUser.getEmail()}">u@mail.com</h5>-->
-        <!--        </li>-->
-        <!--        <li class="nav-item"><h5 class="text-white font-weight-normal">&nbsp;with roles:&nbsp;</h5></li>-->
-        <!--        <li class="nav-item col-9">-->
-        <!--            <h5 class="text-white" th:text="${authUser.getRolesAsString()}">u@mail.com</h5>-->
-        <!--        </li>-->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <h5 class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"><span id="admin-header"></span></h5>
-        <li class="nav-item">
-            <form th:action="@{/logout}" th:method="POST">
-                <button type="submit" class="btn text-secondary">Logout</button>
-            </form>
-        </li>
-    </ul>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="row">
         <!--Left nav panel-->
@@ -79,26 +72,7 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr id="tableOfUsers"> <!--th:each="user : ${users}"-->
-                                            <!--                                            <td th:text="${user.getId()}"></td>-->
-                                            <!--                                            <td th:text="${user.getName()}"></td>-->
-                                            <!--                                            <td th:text="${user.getLastName()}"></td>-->
-                                            <!--                                            <td th:text="${user.getAge()}"></td>-->
-                                            <!--                                            <td th:text="${user.getEmail()}"></td>-->
-                                            <!--                                            <td th:text="${user.getRolesAsString()}"></td>-->
-                                            <!--                                            <td>-->
-                                            <!--                                                <button type="button" class="btn btn-info" data-toggle="modal"-->
-                                            <!--                                                        data-target="#modalEditWindow" style="color:white"-->
-                                            <!--                                                        th:data-target="${'#modalEditWindow'+user.id}">Edit-->
-                                            <!--                                                </button>-->
-                                            <!--                                            </td>-->
-                                            <!--                                            <td>-->
-                                            <!--                                                <button type="button" class="btn btn-danger" data-toggle="modal"-->
-                                            <!--                                                        th:data-target="'#deleteUserModal'+${user.id}">-->
-                                            <!--                                                    Delete-->
-                                            <!--                                                </button>-->
-                                            <!--                                            </td>-->
+                                        <tbody id="tableOfUsers">
 
                                             <!--Edit Modal Window-->
                                             <div class="modal fade" id="editModalWindow" tabindex="-1"
@@ -251,12 +225,13 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-danger"
-                                                                    onclick="deleteUser()">Delete</button>
+                                                                    onclick="deleteUser()">Delete
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>

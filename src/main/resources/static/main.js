@@ -1,7 +1,7 @@
 let url = 'http://localhost:8080/api/admin/users';
 const urlAuthUser = 'http://localhost:8080/api/admin/authUser';
-const data = document.getElementById("tableUserBody");
-const panel = document.getElementById("admin-header");
+const authUserPage = document.getElementById("tableUserBody");
+const authUserNavPanel = document.getElementById("admin-header");
 
 function userAuthInfo() {
     fetch(urlAuthUser)
@@ -16,10 +16,10 @@ function userAuthInfo() {
             <td>${user.lastName}</td>
             <td>${user.age}</td>
             <td>${user.email}</td>
-            <td>${user.roles.map(role => " " + role.role.substring(5))}</td> 
+            <td>${user.rolesAsString}</td> 
             </tr>`;
-            data.innerHTML = temp;
-            panel.innerHTML = `<h5>${user.name} with roles: ${user.roles.map(role => " " + role.role.substring(5))}</h5>`
+            authUserPage.innerHTML = temp;
+            authUserNavPanel.innerHTML = `<h5>${user.email} with roles: ${user.rolesAsString}</h5>`
         });
 }
 
@@ -39,6 +39,7 @@ function getUsers() {
             let placeholder = document.getElementById('tableOfUsers');
             let out = "";
             for (let user of users) {
+
                 out += '<tr>';
                 out += '<td>' + user.id + '</td>';
                 out += '<td>' + user.name + '</td>';
