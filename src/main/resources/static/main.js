@@ -48,9 +48,6 @@ function getUsers() {
                 out += '<td>' + user.email + '</td>';
                 out += '<td>' + user.rolesAsString + '</td>';
 
-                console.log(user.roles)
-                console.log(user.authorities)
-
                 out += '<td><button type="button" class="btn btn-info" data-toggle="modal"' +
                     ' data-target="#editModalWindow" style="color:white"' +
                     ' onclick="getEditModal(' + user.id + ')">' + 'Edit' +
@@ -112,14 +109,9 @@ function editUser() {
     let age = document.getElementById('edit_age').value;
     let email = document.getElementById('edit_email').value;
     let password = document.getElementById('edit_password').value;
-
     let roles = $("#edit_role").val();
 
-    console.log(roles);
-
     for (let i = 0; i < roles.length; i++) {
-        console.log(roles[i])
-        console.log("KUKU")
         if (roles[i] === 'ADMIN') {
             roles[i] = {
                 'id': 2,
@@ -179,14 +171,11 @@ function getDeleteModal(id) {
                 for (let i = 0; i < userDelete.roles.length; i++) {
                     if (userDelete.roles[i].name === 'ROLE_' + select[0].value) { //Checking for role USER
                         select[0].selected = true;
-                        console.log('USER');//TODO delete
                     }
                     if (userDelete.roles[i].name === 'ROLE_' + select[1].value) { //Checking for role ADMIN
                         select[1].selected = true;
-                        console.log('ADMIN');//TODO delete
                     }
                 }
-                console.log('Go next')//TODO delete
             })
         })
 }
@@ -194,7 +183,7 @@ function getDeleteModal(id) {
 function deleteUser() {
     event.preventDefault();
     let id = document.getElementById('idDeleteUser').value;
-    fetch(url + '/' + id + '/delete', {
+    fetch(url + '/' + id, {
         method: 'DELETE',
         headers: {
             'Content-Type': '`application/json;`charset=UTF-8'
@@ -206,9 +195,6 @@ function deleteUser() {
         })
 }
 
-
-
-//TODO addUser
 function addUser() {
     event.preventDefault();
     let name = document.getElementById('newUserName').value;
@@ -218,7 +204,22 @@ function addUser() {
     let password = document.getElementById('newUserPassword').value;
     let roles = $("#rolesNew").val()
 
-    console.log(roles)
+    for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'ROLE_ADMIN') {
+            roles[i] = {
+                'id': 2,
+                'role': 'ROLE_ADMIN',
+                "authority": "ROLE_ADMIN"
+            }
+        }
+        if (roles[i] === 'ROLE_USER') {
+            roles[i] = {
+                'id': 1,
+                'role': 'ROLE_USER',
+                "authority": "ROLE_USER"
+            }
+        }
+    }
 
     fetch(url, {
         method: 'POST',
